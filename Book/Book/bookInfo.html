@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title> 漫画详情 </title>
+	<script src="js/jquery_1.11.3.min.js"></script>
+</head>
+<body>
+	 
+
+	<ul>
+		
+	</ul>
+	<script>
+		$(document).ready(function($) {
+			var booId =  window.location.search.split("&");
+			//console.log( window.location.search.split("&"))
+			var booid =  booId[0].replace(/\?/,"");
+			var bookName = booId[1]
+			console.log(booid +";" + bookName)
+
+			// var arr = [];
+			// arr[0] = booid;
+			// arr[1] = bookName;
+ 			var name = "data="+"comicName="+ bookName +"#id="+booid; 
+			 
+
+			$.ajax({
+				url:"ajax1.php",
+				type:"POST"
+				data:name
+			}).done(function  (data) {
+				 var data =  JSON.parse(data);
+				console.log(data);
+			})
+
+			 
+	
+		});
+	</script>
+</body>
+</html>
