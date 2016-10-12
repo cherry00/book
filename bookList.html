@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title> 漫画列表 </title>
+	<script src="js/jquery_1.11.3.min.js"></script>
+</head>
+<body>
+	<input type="text" id="search"> 
+	<button id="btn"> 搜索 </button>
+
+	<ul>
+		
+	</ul>
+	<script>
+
+
+
+		var str ="";
+		var list = ""
+		// 1.给按钮添加绑定事件
+		$("#btn").click(function(event) {
+		// 2.获取搜索值
+		 	str =  $("#search").val();
+		 	// 3.搜索内容 给AJAX 进行传参的值                                                
+		 	var name = "data=" + str;
+
+		 	// 向后台发起请求 POST 看不见的请求  
+		 	$.ajax({
+				url: 'ajax.php',
+				type: 'POST', //POST看不见比较安全，而且不限制大小 
+				data: name //包含的数据信息项
+			})
+			.done(function(data) {
+				//成功返回数据
+				var data = JSON.parse(data);
+				var Chapterlist = data.result.chapterList;
+				for (var i = 0; i < Chapterlist.length; i++) {
+						list += "<li><a href='"+ Chapterlist[i].id + "' comicName='"+ data.result.comicName +"'>" + Chapterlist[i].name + " </a></li>";
+
+				};
+				$("ul").html(list)
+			})
+
+		});
+
+		
+	
+		
+	</script>
+</body>
+</html>
